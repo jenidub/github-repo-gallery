@@ -6,12 +6,15 @@ const overview = document.querySelector(".overview");
 //Store my GitHub username
 const username = "jenidub";
 
+//Select the repo-list class representing the ul
+const repoList = document.querySelector(".repo-list");
+
+
 /**** MAIN CODE LIST ****/
 //Retrieve user GitHub repos with async function
 const githubData = async function () {
     const data = await fetch (`https://api.github.com/users/${username}`);
     const dataObject = await data.json();
-    console.log(dataObject);
     displayData(dataObject);
 }
 
@@ -35,3 +38,22 @@ const displayData = function(json) {
 }
 
 githubData();
+
+//Display information about the repos
+const displayRepos = function (repos) {
+    for (let repo of repos) {
+        let li = document.createElement("li");
+        li.className = 'repo';
+        li.innerHTML = `<h3>${repo.name}</h3>`;
+        repoList.append(li);
+    }
+}
+
+//Fetch user list of repos with async function
+const gitHubRepos = async function () {
+    const repoData = await fetch (`https://api.github.com/users/${username}/repos?per_page=100`);
+    const repoJSON = await repoData.json();
+    displayRepos(repoJSON);
+}
+
+gitHubRepos();
