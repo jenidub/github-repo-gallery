@@ -7,13 +7,19 @@ const overview = document.querySelector(".overview");
 const username = "jenidub";
 
 //Select the repos section
-const reposSection = document.querySelector(".repos");
+const repoSection = document.querySelector(".repos");
 
 //Select the repo-list class representing the ul
 const repoList = document.querySelector(".repo-list");
 
 //Select the area where individual repo data appears
 const repoInfo = document.querySelector(".repo-data");
+
+//Select the Back to Repo Gallery button
+const backToGallery = document.querySelector(".view-repos");
+
+//Select the search bar area
+const filterInput = document.querySelector(".filter-repos");
 
 
 /**** MAIN CODE LIST ****/
@@ -47,6 +53,8 @@ githubData();
 
 //Display information about the repos
 const displayRepos = function (repos) {
+    filterInput.classList.remove("hide");
+
     for (let repo of repos) {
         let li = document.createElement("li");
         li.className = 'repo';
@@ -76,7 +84,6 @@ repoList.addEventListener("click", function(e) {
 const individualRepo = async function (r) {
     const oneRepoInfo = await fetch (`https://api.github.com/repos/${username}/${r}`);
     const oneRepoJSON = await oneRepoInfo.json();
-    console.log(oneRepoJSON);
 
     const languages = await fetch (oneRepoJSON.languages_url);
     const languagesData = await languages.json();
@@ -103,4 +110,33 @@ const displayOneRepo = function (repo, languages) {
     repoInfo.append(div);
     repoInfo.classList.remove("hide");
     repoList.classList.add("hide");
+    backToGallery.classList.remove("hide");
 }
+
+//Back to Repo Gallery button Event Listener
+backToGallery.addEventListener("click", function(e) {
+    repoSection.classList.remove("hide");
+    repoList.classList.remove("hide");
+    repoInfo.classList.add("hide");
+    backToGallery.classList.add("hide");
+    filterInput.classList.remove("hide");
+    filterInput.value = '';
+})
+
+//How to restore the full list of repos after pressing backtoGallery?
+
+filterInput.addEventListener("input", function(e) {
+    let search = e.target.value;
+    search = search.toLowerCase();
+
+    let repos = document.querySelectorAll(".repo");
+    for (let r of repos) {
+        let check = r.innerText.toLowerCase();
+        console.log(search, check);
+        if (check.includes(search)) {
+            r.classList.remove("hide");
+        } else {
+            r.classList.add("hide");
+        }
+    }
+})
