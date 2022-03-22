@@ -8,7 +8,7 @@ body {
     justify-content: center;
     margin: 0;
     font-family: "Open Sans", sans-serif;
-    background-color: #fbf9de;
+    background-color: black;
     color: #333;
     font-size: 16px;
 }
@@ -27,7 +27,7 @@ body {
 }
 
 .fa-github-alt {
-    color: #f86d58;
+    color: yellow;
 }
 
 img {
@@ -47,6 +47,10 @@ h1 {
     text-transform: uppercase;
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
+}
+
+strong {
+    color: lightskyblue;
 }
 
 .badge {
@@ -173,7 +177,7 @@ section.repo-data {
 .repo-list li {
     width: 90%;
     margin: 1em 0;
-    border: 1px solid #f86d58;
+    border: 1px solid #483978;
     padding: 0.5em;
 }
 

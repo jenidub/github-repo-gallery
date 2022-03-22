@@ -58,7 +58,7 @@ const displayRepos = function (repos) {
     for (let repo of repos) {
         let li = document.createElement("li");
         li.className = 'repo';
-        li.innerHTML = `<h3>${repo.name}</h3>`;
+        li.innerHTML = `<h4>${repo.name}</h4>`;
         repoList.append(li);
     }
 }
